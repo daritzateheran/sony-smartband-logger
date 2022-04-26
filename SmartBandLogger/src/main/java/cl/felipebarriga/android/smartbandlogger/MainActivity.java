@@ -18,6 +18,7 @@ import com.androidplot.util.Redrawer;
 import com.androidplot.xy.BoundaryMode;
 import com.androidplot.xy.LineAndPointFormatter;
 import com.androidplot.xy.SimpleXYSeries;
+import com.androidplot.xy.XYGraphWidget;
 import com.androidplot.xy.XYPlot;
 
 import java.text.DecimalFormat;
@@ -179,7 +180,9 @@ public class MainActivity extends Activity implements OnEventListener {
         mHistoryPlot.addSeries( mYHistorySeries, getLineAndPointFormatter( lineWidth, Color.GREEN ) );
         mHistoryPlot.addSeries( mZHistorySeries, getLineAndPointFormatter( lineWidth, Color.BLUE  ) );
 
-        mHistoryPlot.setRangeValueFormat( new DecimalFormat( "#" ) );
+        //mHistoryPlot.setRangeValueFormat( new DecimalFormat( "#" ) );
+        mHistoryPlot.getGraph().getLineLabelStyle(XYGraphWidget.Edge.LEFT).setFormat(new DecimalFormat("#"));
+
 
         redrawer = new Redrawer( mHistoryPlot, 40, false );
     }

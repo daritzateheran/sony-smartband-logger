@@ -22,7 +22,9 @@ android {
 }
 
 dependencies {
-    compile project(':smartExtensionUtils')
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.androidplot:androidplot-core:0.6.1'
+    implementation project(':smartExtensionUtils')
+    implementation project(':smartExtensionAPI')
+    implementation 'com.android.support:appcompat-v7:23.1.1'
+    //implementation 'com.androidplot:androidplot-core:0.6.1'
+    implementation "com.androidplot:androidplot-core:1.5.1"
 }

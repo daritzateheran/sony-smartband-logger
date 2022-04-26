@@ -23,9 +23,9 @@ public class RegistrationInformation extends com.sonyericsson.extras.liveware.ex
      *
      * @param context The context
      */
-    protected RegistrationInformation( Context context ) {
-        if( context == null ) {
-            throw new IllegalArgumentException( "context == null" );
+    protected RegistrationInformation(Context context) {
+        if (context == null) {
+            throw new IllegalArgumentException("context == null");
         }
         mContext = context;
     }
@@ -57,30 +57,30 @@ public class RegistrationInformation extends com.sonyericsson.extras.liveware.ex
      */
     @Override
     public ContentValues getExtensionRegistrationConfiguration() {
-        String iconHostapp = ExtensionUtils.getUriString( mContext, R.drawable.icon );
-        String iconExtension = ExtensionUtils.getUriString( mContext, R.drawable.icon );
+        String iconHostapp = ExtensionUtils.getUriString(mContext, R.drawable.icon);
+        String iconExtension = ExtensionUtils.getUriString(mContext, R.drawable.icon);
 
         ContentValues values = new ContentValues();
 
-        values.put( Registration.ExtensionColumns.CONFIGURATION_ACTIVITY,
-                SettingsActivity.class.getName() );
-        values.put( Registration.ExtensionColumns.CONFIGURATION_TEXT,
-                mContext.getString( R.string.configuration_text ) );
-        values.put( Registration.ExtensionColumns.NAME, mContext.getString( R.string.extension_name ) );
-        values.put( Registration.ExtensionColumns.EXTENSION_KEY,
-                ExtensionService.EXTENSION_KEY );
-        values.put( Registration.ExtensionColumns.HOST_APP_ICON_URI, iconHostapp );
-        values.put( Registration.ExtensionColumns.EXTENSION_ICON_URI, iconExtension );
-        values.put( Registration.ExtensionColumns.NOTIFICATION_API_VERSION,
-                getRequiredNotificationApiVersion() );
-        values.put( Registration.ExtensionColumns.PACKAGE_NAME, mContext.getPackageName() );
+        values.put(Registration.ExtensionColumns.CONFIGURATION_ACTIVITY,
+                SettingsActivity.class.getName());
+        values.put(Registration.ExtensionColumns.CONFIGURATION_TEXT,
+                mContext.getString(R.string.configuration_text));
+        values.put(Registration.ExtensionColumns.NAME, mContext.getString(R.string.extension_name));
+        values.put(Registration.ExtensionColumns.EXTENSION_KEY,
+                ExtensionService.EXTENSION_KEY);
+        values.put(Registration.ExtensionColumns.HOST_APP_ICON_URI, iconHostapp);
+        values.put(Registration.ExtensionColumns.EXTENSION_ICON_URI, iconExtension);
+        values.put(Registration.ExtensionColumns.NOTIFICATION_API_VERSION,
+                getRequiredNotificationApiVersion());
+        values.put(Registration.ExtensionColumns.PACKAGE_NAME, mContext.getPackageName());
 
         return values;
     }
 
     @Override
-    public boolean isSensorSupported( AccessorySensor sensor ) {
-        return Sensor.SENSOR_TYPE_ACCELEROMETER.equals( sensor.getType().getName() );
+    public boolean isSensorSupported(AccessorySensor sensor) {
+        return Sensor.SENSOR_TYPE_ACCELEROMETER.equals(sensor.getType().getName());
     }
 
 }
