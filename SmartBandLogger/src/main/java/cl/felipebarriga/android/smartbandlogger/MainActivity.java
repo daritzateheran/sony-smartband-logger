@@ -199,6 +199,15 @@ public class MainActivity extends Activity implements OnEventListener {
             case RECORDS:
                 updatePlot();
                 updateRecords();
+
+                List<ChartRecord> records = mLoggerSingleton.getChartRecords();
+                int size = records.size();
+                if( size == 0 ) {
+                    return;
+                }
+                ChartRecord record = records.get( size - 1 );
+                Log.w( LOG_TAG, CLASS + ":x " + record.x +":y " + record.y +":z " + record.z );
+
                 break;
 
             case LOG_FILENAME:
@@ -298,6 +307,7 @@ public class MainActivity extends Activity implements OnEventListener {
             mYHistorySeries.addLast( record.timestamp, record.y );
             mZHistorySeries.addLast( record.timestamp, record.z );
         }
+
     }
 
     public void updatePlot() {

@@ -123,7 +123,7 @@ public class LoggerSingleton {
                 break;
 
             default:
-                Log.w( LOG_TAG, CLASS + ": getSensorRateStr: unknown rate: " + mSensorRate );
+                /*Log.w( LOG_TAG, CLASS + ": getSensorRateStr: unknown rate: " + mSensorRate );*/
                 break;
         }
 
