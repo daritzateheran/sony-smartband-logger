@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import androidx.core.content.FileProvider;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,14 +51,14 @@ public class ShowLogsActivity extends ListActivity {
             case OPEN:
                 Intent viewIntent = new Intent();
                 viewIntent.setAction( Intent.ACTION_VIEW );
-                viewIntent.setDataAndType( Uri.fromFile( file ), "text/*" );
+                viewIntent.setDataAndType(FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file), "text/*" );
                 startActivity( viewIntent );
                 break;
 
             case SHARE:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction( Intent.ACTION_SEND );
-                sendIntent.putExtra( Intent.EXTRA_STREAM, Uri.fromFile( file ) );
+                sendIntent.putExtra( Intent.EXTRA_STREAM, FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file));
                 sendIntent.setType( "text/*" );
                 startActivity( sendIntent );
                 break;
