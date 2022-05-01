@@ -2,6 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/open_log_directory"
           android:title="@string/main_menu_show_logs" />
+    <item android:id="@+id/add_caregiver"
+        android:title="@string/main_menu_add_caregiver" />
     <item android:id="@+id/preferences"
           android:title="@string/main_menu_preferences" />
     <item android:id="@+id/about"

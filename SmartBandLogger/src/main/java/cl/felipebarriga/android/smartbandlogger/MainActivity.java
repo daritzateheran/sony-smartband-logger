@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidplot.util.PixelUtils;
 import com.androidplot.util.Redrawer;
@@ -119,6 +120,10 @@ public class MainActivity extends Activity implements OnEventListener {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.add_caregiver:
+                startActivity(new Intent(this, CaregiverActivity.class));
+                return true;
+
             case R.id.about:
                 showAboutDialog();
                 return true;
