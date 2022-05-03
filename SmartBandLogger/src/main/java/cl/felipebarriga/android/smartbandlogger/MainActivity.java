@@ -2,6 +2,7 @@ package cl.felipebarriga.android.smartbandlogger;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidplot.util.PixelUtils;
 import com.androidplot.util.Redrawer;
@@ -118,6 +120,7 @@ public class MainActivity extends Activity implements OnEventListener {
 
             // Releases model resources if no longer used.
             model.close();
+
         } catch (IOException e) {
             // TODO Handle the exception
         }
