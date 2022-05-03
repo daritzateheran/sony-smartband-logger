@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 28
     buildToolsVersion "23.0.2"
     defaultConfig {
         applicationId 'cl.felipebarriga.android.smartbandlogger'
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 28
     }
     buildTypes {
         release {
