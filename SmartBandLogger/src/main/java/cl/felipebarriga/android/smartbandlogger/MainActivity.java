@@ -21,9 +21,17 @@ import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYGraphWidget;
 import com.androidplot.xy.XYPlot;
 
+import org.tensorflow.lite.DataType;
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
+
+import cl.felipebarriga.android.smartbandlogger.ml.MyModel;
 import cl.felipebarriga.android.utils.PreferencesUtils;
 
 /**
@@ -78,6 +86,54 @@ public class MainActivity extends Activity implements OnEventListener {
         redrawPlot();
         mLoggerSingleton.setOnEventListener( this );
         updateElapsedTime();
+
+
+        int TIME_STAMP = 50;
+        List<Float> ax = new ArrayList<>();
+        List<Float> ay = new ArrayList<>();
+        List<Float> az = new ArrayList<>();
+        for (int i = 0; i <50; i++ ){
+            ax.add((float)1.0);
+            ay.add((float)2.0);
+            az.add((float)3.0);
+        }
+
+
+        try {
+            //float [][][] data = {{{6.5F,37.0F,35.0F },{ 9.0F,37.0F,37.0F },{11.5F,38.0F,39.5F},{12.0F,39.0F,35.0F },{13.0F,  37.5F, 36.5F},{15.0F,  38.5F, 36.0F },{13.0F,  39.0F,  37.0F },{12.5F, 41.0F,  38.0F},{11.0F,  41.0F,  39.0F },{10.0F,  40.5F, 40.0F },{11.0F,  41.5F, 39.5F},{ 6.0F, 40.0F,  38.0F },{ 5.0F, 39.5F, 39.5F},{ 8.0F,  38.0F,  35.0F },{ 6.0F, 37.0F,  35.5F},{ 8.5F, 35.5F, 33.5F},{11.0F,  36.0F,  33.0F },{14.5F, 36.0F,  32.5F},{13.0F,  37.0F,  32.0F },{16.0F, 35.0F,  32.5F},{15.0F,  36.0F,  33.5F},{14.0F,  37.0F,  33.0F },{12.0F,  36.5F,34.5F},{ 8.0F,  37.0F,  34.0F },{12.0F,37.0F,  36.0F },{12.5F, 40.0F, 38.5F},{14.0F,  37.0F,  37.0F },{13.0F,38.0F,36.5F},{15.0F,38.0F,36.0F},{11.5F,38.0F,38.5F},{10.5F,40.0F,38.5F}, {10.0F,40.0F,40.0F}, { 9.5F,41.5F,41.0F},{ 7.0F,40.0F,41.0F},{5.0F,40.0F,0.5F},{ 6.0F,36.5F,35.0F },{ 6.0F,36.3F,5.0F},{ 9.0F,5.0F,34.0F},{15.0F,36.0F,33.0F},{13.0F, 35.5F, 31.0F},{15.3F,6.5F,32.5F},{17.0F,  35.3F, 2.0F},{15.0F,36.0F,33.0F},{15.0F,36.0F,33.0F},{14.5F,37.0F,35.5F},{9.5F,36.0F,34,0F},{13.0F,37.0F,37.0F},{11.5F,38.5F,37.5F},{11.0F,39.0F,37.0F},{13.0F,38.0F,38.0F}}};
+            List<Float> data = new ArrayList<>();
+            data.addAll(ax.subList(0, TIME_STAMP));
+            data.addAll(ay.subList(0, TIME_STAMP));
+            data.addAll(az.subList(0, TIME_STAMP));
+            System.out.print(data);
+            MyModel model = MyModel.newInstance(getApplicationContext());
+
+            // Creates inputs for reference.
+            TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 50, 3}, DataType.FLOAT32);
+            inputFeature0.loadArray(toFloatArray(data));
+
+            // Runs model inference and gets result.
+            MyModel.Outputs outputs = model.process(inputFeature0);
+            TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
+
+            // Releases model resources if no longer used.
+            model.close();
+        } catch (IOException e) {
+            // TODO Handle the exception
+        }
+
+    }
+
+    private float[] toFloatArray(List<Float> data){
+        int i = 0;
+
+        float[] array = new float[data.size()];
+        for (Float f: data){
+            array[i++] = (f !=null ? f: Float.NaN);
+        }
+        //Log.d(TAG, "toFloatArray: " + array);
+        return array;
+
     }
 
     @Override

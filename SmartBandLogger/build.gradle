@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
     defaultConfig {
         applicationId 'cl.felipebarriga.android.smartbandlogger'
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 23
     }
     buildTypes {
@@ -19,6 +19,9 @@ android {
     }
     productFlavors {
     }
+    buildFeatures {
+        mlModelBinding true
+    }
 }
 
 dependencies {
@@ -27,4 +30,6 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:23.1.1'
     //implementation 'com.androidplot:androidplot-core:0.6.1'
     implementation "com.androidplot:androidplot-core:1.5.1"
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
 }
