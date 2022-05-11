@@ -36,6 +36,7 @@ public class MainActivity extends Activity implements OnEventListener {
     private static final String LOG_TAG = "SmartBandLogger";
     private final String CLASS = getClass().getSimpleName();
 
+
     private static final int HISTORY_SIZE = 300;
 
     private PreferencesUtils mPrefs = null;
@@ -206,7 +207,7 @@ public class MainActivity extends Activity implements OnEventListener {
                     return;
                 }
                 ChartRecord record = records.get( size - 1 );
-                Log.w( LOG_TAG, CLASS + ":x " + record.x +":y " + record.y +":z " + record.z );
+                Log.w( LOG_TAG,  CLASS + ":x " + record.x +":y " + record.y +":z " + record.z );
 
                 break;
 

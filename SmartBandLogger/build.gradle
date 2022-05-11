@@ -27,4 +27,5 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:23.1.1'
     //implementation 'com.androidplot:androidplot-core:0.6.1'
     implementation "com.androidplot:androidplot-core:1.5.1"
+    implementation 'org.tensorflow:tensorflow-android:1.8.0'
 }
