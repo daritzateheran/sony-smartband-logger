@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidplot.util.PixelUtils;
 import com.androidplot.util.Redrawer;
@@ -21,10 +22,24 @@ import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYGraphWidget;
 import com.androidplot.xy.XYPlot;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
 
 import cl.felipebarriga.android.utils.PreferencesUtils;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.Headers;
+import okhttp3.OkHttp;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+
 
 /**
  * Copyright (c) 2015 Felipe Barriga Richards. See Copyright Notice in LICENSE file.
@@ -55,6 +70,9 @@ public class MainActivity extends Activity implements OnEventListener {
     private Redrawer redrawer;
     private boolean mDebugMessages = false;
     private LoggerSingleton.Status mCurrentStatus;
+    public  OkHttpClient client = new OkHttpClient();
+
+
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -78,6 +96,7 @@ public class MainActivity extends Activity implements OnEventListener {
         redrawPlot();
         mLoggerSingleton.setOnEventListener( this );
         updateElapsedTime();
+
     }
 
     @Override
@@ -206,7 +225,53 @@ public class MainActivity extends Activity implements OnEventListener {
                     return;
                 }
                 ChartRecord record = records.get( size - 1 );
-                Log.w( LOG_TAG, CLASS + ":x " + record.x +":y " + record.y +":z " + record.z );
+
+
+                RequestBody form = new FormBody.Builder().add("value",record.x + "," + record.y +"," + record.z).build();
+                Request request = new Request.Builder().url("http://192.168.1.8:3000/post").post(form).build();
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        String r=response.body().string();
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                //final Toast toast = Toast.makeText(MainActivity.this, r, Toast.LENGTH_LONG);;
+                                //toast.show();
+                                Log.w( LOG_TAG, CLASS + r);
+                            }
+                        });
+
+                    }
+                });
+
+
+                /*RequestBody form = new FormBody.Builder().add("value","x").build();
+                /*Request request = new Request.Builder().url("http://10.20.60.137:3000/post").post(form).build();
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this,e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    }
+                });*/
+
 
                 break;
 
