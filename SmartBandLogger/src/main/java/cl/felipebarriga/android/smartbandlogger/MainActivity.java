@@ -39,6 +39,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 
 /**
@@ -71,7 +75,7 @@ public class MainActivity extends Activity implements OnEventListener {
     private boolean mDebugMessages = false;
     private LoggerSingleton.Status mCurrentStatus;
     public  OkHttpClient client = new OkHttpClient();
-
+    public List<Float> xyz_50 = new ArrayList<Float>();
 
 
     @Override
@@ -225,33 +229,46 @@ public class MainActivity extends Activity implements OnEventListener {
                     return;
                 }
                 ChartRecord record = records.get( size - 1 );
+                if(xyz_50.size()<150){
 
+                    xyz_50.add(record.x);
+                    xyz_50.add(record.y);
+                    xyz_50.add(record.z);
 
-                RequestBody form = new FormBody.Builder().add("value",record.x + "," + record.y +"," + record.z).build();
-                Request request = new Request.Builder().url("http://192.168.1.8:3000/post").post(form).build();
-                client.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                        String r=response.body().string();
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                //final Toast toast = Toast.makeText(MainActivity.this, r, Toast.LENGTH_LONG);;
-                                //toast.show();
-                                Log.w( LOG_TAG, CLASS + r);
-                            }
-                        });
+                }
+                else{
+                    //abro el post
+                    Log.w( "APP", xyz_50.toString());
+                    RequestBody form = new FormBody.Builder().add("value",xyz_50.toString()).build();
+                    Request request = new Request.Builder().url("http://192.168.0.11:3000/post").post(form).build();
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                        @Override
+                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                            String r=response.body().string();
+                            //Log.w( "server", r);
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    //final Toast toast = Toast.makeText(MainActivity.this, r, Toast.LENGTH_LONG);;
+                                    //toast.show();
 
-                    }
-                });
+                                }
+                            });
+
+                        }
+                    });
+                    xyz_50 = xyz_50.subList(30, 150); //guardar 100 ultimos datos
+
+                }
+
 
 
                 /*RequestBody form = new FormBody.Builder().add("value","x").build();
