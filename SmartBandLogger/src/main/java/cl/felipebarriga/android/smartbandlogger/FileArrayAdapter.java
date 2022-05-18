@@ -128,11 +128,12 @@ public class FileArrayAdapter extends ArrayAdapter<File> implements View.OnCreat
         return rowView;
     }
 
-    private String timestamp2date( long ts ) {
+    public String timestamp2date( long ts ) {
         SimpleDateFormat sdf = new SimpleDateFormat(
                 mContext.getString( R.string.show_logs_date_format) );
         return sdf.format( new Date( ts ) );
     }
+
 
     private String getFirstRecordDateString( File file ) {
 
