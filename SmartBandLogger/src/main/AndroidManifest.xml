@@ -32,6 +32,14 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="launch"
+            android:label="launch" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
         <service android:name=".ExtensionService" />
 
         <receiver android:name=".BatteryInfoReceiver" android:enabled="true">

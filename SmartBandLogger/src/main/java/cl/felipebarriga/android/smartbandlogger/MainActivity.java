@@ -3,14 +3,18 @@ package cl.felipebarriga.android.smartbandlogger;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +44,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -78,10 +81,20 @@ public class MainActivity extends Activity implements OnEventListener {
     public  OkHttpClient client = new OkHttpClient();
     public List<Float> xyz_50 = new ArrayList<Float>();
 
-
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
+
+       /* SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
+
+        Log.i( LOG_TAG, CLASS + isFirstRun);
+
+        if (isFirstRun) {
+            Intent intent = new Intent(getApplicationContext(), launch.class);
+            startActivity(intent);
+        }*/
+
         setContentView( R.layout.main );
 
         mLoggerSingleton = LoggerSingleton.getInstance();
@@ -149,6 +162,11 @@ public class MainActivity extends Activity implements OnEventListener {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
+            case R.id.launch:
+                startActivity(new Intent(this, launch.class));
+                return true;
+
             case R.id.about:
                 showAboutDialog();
                 return true;

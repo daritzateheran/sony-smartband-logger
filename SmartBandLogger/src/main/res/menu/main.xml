@@ -6,4 +6,6 @@
           android:title="@string/main_menu_preferences" />
     <item android:id="@+id/about"
           android:title="@string/main_menu_about" />
+    <item android:id="@+id/launch"
+        android:title="Launch" />
 </menu>
