@@ -29,15 +29,18 @@ import java.util.Objects;
 
 public class Caregiver extends Activity{
     public String alert;
-    public static class Global{
+    public static class Global {
         public static String Number;
         public static String message;
     }
+
     EditText etMsj,etCel;
     Button btnsend,btnSelec, btnCall;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences mp = PreferenceManager.getDefaultSharedPreferences(this);
+
         alert = "Alguien está presentando un evento anormal";
         setContentView( R.layout.caregiver );
 
@@ -54,6 +57,11 @@ public class Caregiver extends Activity{
                 Intent intent =new Intent(Intent.ACTION_PICK);
                 intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);  //acceder tanto al nombre como el # de contacto
 
+                /*SharedPreferences.Editor editor = mp.edit();
+                editor.putFloat("user", 925266422);
+                editor.apply();
+                Float user = mp.getFloat("user", -1);
+                System.out.println(user);*/
                 startActivityForResult(intent, 1);
             }
         });

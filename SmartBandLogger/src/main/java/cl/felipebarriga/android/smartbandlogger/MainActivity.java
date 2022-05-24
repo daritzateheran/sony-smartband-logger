@@ -4,11 +4,13 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -82,13 +84,25 @@ public class MainActivity extends Activity implements OnEventListener {
     public OkHttpClient client = new OkHttpClient();
     public List<Float> xyz_50 = new ArrayList<Float>();
     public List<String> predictions = new ArrayList<String>();
+    public String validation = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*SharedPreferences mp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = mp.edit();
+        editor.putFloat("user", 78569542);
+        editor.apply();
 
-        Log.d(LOG_TAG, CLASS + " onCreate: YAPER");
-       /* SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
+        editor.putString("Caregivers", "adriana,3013458945");
+        editor.apply();
+
+        Float user = mp.getFloat("user", -1);
+        String caregiver = mp.getString("Caregivers", "");
+
+        System.out.println(user +" "+ caregiver);*/
+
+       /*SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
         boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
 
         Log.i( LOG_TAG, CLASS + isFirstRun);
@@ -267,7 +281,7 @@ public class MainActivity extends Activity implements OnEventListener {
 
                 } else {
                     Log.w("Timestamp = ", timestamp2date(record.timestamp));
-                    ;
+
                     RequestBody form = new FormBody.Builder().add("value", xyz_50.toString()).add("timestamp", timestamp2date(record.timestamp)).build();
                     Request request = new Request.Builder().url("http://3.16.124.69:3000/post").post(form).build();
                     client.newCall(request).enqueue(new Callback() {
@@ -279,41 +293,50 @@ public class MainActivity extends Activity implements OnEventListener {
                         @Override
                         public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                             String r = response.body().string();
-                            alert = "Alguien está presentando un evento anormal";
+                            String predictr = r.split(String.valueOf(' '))[0];
+                            String timeServer = r.split(String.valueOf(' '))[4];
                             int cont = 0;
                             int contN= 0;
 
-                            String predictr = r.split(String.valueOf(' '))[0];
-                            Log.w("Predictr =",predictr);
+                            alert = "Alguien está presentando un evento anormal";
                             if (predictions.size()<5){
                                 predictions.add(predictr);
                             }else{
                                 for (int ini=0;ini<5;ini++){
-                                    if (predictions.contains("ANORMAL")) {
+                                    if (predictions.get(ini).contains("ANORMAL")) {
                                         cont++;
                                     } else {
-                                        predictions.contains("NORMAL");
                                         contN++;
                                     }
                                 }
-                                if (cont>contN){
+                                Log.w("Predictions = ",String.valueOf(predictions));
+                                Log.w("Contador Anormal = ", String.valueOf(cont));
+                                Log.w("Contador Normal = ", String.valueOf(contN));
+                                Log.w("timeServer = ",String.valueOf(timeServer));
+
+                                if (contN>cont){
+                                    validation = "1";
+                                }
+                                if (cont>contN && validation.equals("1")){
 
                                     Log.w("Mensaje = ", "Entró en ANORMAL");
-                                    Log.w("Contador Anormal=", String.valueOf(cont));
+                                    SmsManager smsManager = SmsManager.getDefault();
+                                    smsManager.sendTextMessage("3042062017", null, alert + "timestamp" + timeServer, null, null);
 
+                                    //Toast.makeText(MainActivity.this, "Mensaje enviado", Toast.LENGTH_LONG).show();
+                                    Log.w( "server = ","SMS enviado");
+                                    /*Log.w("Ingreso = ", "Realiza llamada");
                                     Intent i = new Intent(Intent.ACTION_CALL, Uri.parse("tel:3042062017"));
                                     if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                                         // TODO: Consider calling
                                         //    ActivityCompat#requestPermissions
-
                                         return;
                                     }
-                                    startActivity(i);
-                                }else{
-                                    Log.w("PREDICCIONES: ", String.valueOf(predictions));
-                                    predictions.clear();
-                                    Log.w("PREDICCIONES POST: ", String.valueOf(predictions));
+                                    startActivity(i);*/
+                                    validation = "0";
                                 }
+                                predictions.clear();
+                                Log.w("Validation = ", validation);
                             }
 
                            // if (predictr.contains("ANORMAL")) {
@@ -332,11 +355,7 @@ public class MainActivity extends Activity implements OnEventListener {
                                         return;
                                     }
                                     startActivity(i);*/
-
-
-
                           //  }
-                            Log.w( "Predict=", String.valueOf(predictr.contains("ANORMAL")));
                         }
                     });
                     xyz_50 = xyz_50.subList(30, 150);
