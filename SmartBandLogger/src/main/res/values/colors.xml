@@ -3,5 +3,6 @@
     <color name="plot_x">#FFFF6464</color>
     <color name="plot_y">#FF64FF64</color>
     <color name="plot_z">#FF6464FF</color>
+    <color name="color_lightblue">#039af1</color>
     <color name="color_darkblue">#0F256E</color>
 </resources>

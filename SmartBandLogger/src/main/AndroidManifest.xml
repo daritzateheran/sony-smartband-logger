@@ -10,7 +10,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <!--Para SMS y llamar-->
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
 
     <application
@@ -26,15 +28,26 @@
         </activity>
         <activity
             android:name=".ShowLogsActivity"
-            android:label="@string/show_logs_activity_title" >
+            android:label="@string/show_logs_activity_title"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
         <activity
-            android:name="launch"
-            android:label="launch" >
+            android:name="Caregiver"
+            android:label=" "
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="MainActivity"
+            android:label="Anomaly alarm"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -78,7 +91,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".MainActivity" >
+        <activity android:name=".launch" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

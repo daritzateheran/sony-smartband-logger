@@ -13,6 +13,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 
 public class launch extends Activity{
 
@@ -24,10 +26,11 @@ public class launch extends Activity{
         super.onCreate(savedInstanceState);
         Log.d( LOG_TAG, CLASS + " onCreate: called" );
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Objects.requireNonNull(getActionBar()).hide();
         setContentView( R.layout.launch );
 
         //Animations
-       /* Animation animation1= AnimationUtils.loadAnimation(this, R.anim.desplazamiento_arriba);
+        Animation animation1= AnimationUtils.loadAnimation(this, R.anim.desplazamiento_arriba);
         Animation animation2= AnimationUtils.loadAnimation(this, R.anim.desplazamiento_abajo);
 
         TextView fromTextView= (TextView) findViewById(R.id.fromTextView);
@@ -36,7 +39,7 @@ public class launch extends Activity{
 
         fromTextView.setAnimation(animation2);
         srdesignTextView.setAnimation(animation2);
-        logoImageView.setAnimation(animation1);*/
+        logoImageView.setAnimation(animation1);
 
       /*  new Handler().postDelayed(new Runnable() {
             @Override
@@ -51,6 +54,11 @@ public class launch extends Activity{
             }
 
         }, 3000);*/
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(launch.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }, 3000);
 
     }
 
