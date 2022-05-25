@@ -55,7 +55,7 @@ public class launch extends Activity{
 
         }, 3000);*/
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(launch.this, MainActivity.class);
+            Intent intent = new Intent(launch.this, KeyId.class);
             startActivity(intent);
             finish();
         }, 3000);
