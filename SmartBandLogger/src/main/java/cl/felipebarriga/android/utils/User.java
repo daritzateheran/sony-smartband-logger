@@ -2,11 +2,11 @@ package cl.felipebarriga.android.utils;
 
 public class User {
     int id;
-    String name;
+    String key;
 
-    public User(int id, String name) {
+    public User(int id, String key) {
         this.id = id;
-        this.name = name;
+        this.key = key;
     }
 
     public int getId() {
@@ -17,11 +17,11 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getKey() {
+        return key;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setKey(String key) {
+        this.key = key;
     }
 }

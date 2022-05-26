@@ -25,7 +25,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
-        </activity>
+        </activity>|
         <activity
             android:name=".ShowLogsActivity"
             android:label="@string/show_logs_activity_title"

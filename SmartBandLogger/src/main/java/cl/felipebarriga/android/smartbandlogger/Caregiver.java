@@ -8,24 +8,17 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Objects;
+import cl.felipebarriga.android.utils.session;
 
 public class Caregiver extends Activity{
     public String alert;
@@ -44,8 +37,8 @@ public class Caregiver extends Activity{
         alert = "Alguien está presentando un evento anormal";
         setContentView( R.layout.caregiver );
 
-        etMsj= (EditText) findViewById(R.id.textMensaje);
-        etCel= (EditText) findViewById(R.id.textNumero);
+        etMsj= (EditText) findViewById(R.id.Key);
+        etCel= (EditText) findViewById(R.id.id);
         btnsend= (Button) findViewById(R.id.button);
         btnSelec= (Button) findViewById(R.id.btnAgregar);
         btnCall= (Button) findViewById(R.id.btnCall);
@@ -96,6 +89,20 @@ public class Caregiver extends Activity{
             }
         });
     }
+
+    public void logout(View view) {
+        //this method will remove session and open login screen
+        session sessionManagement = new session(   Caregiver.this);
+        sessionManagement.removeSession();
+
+        moveToLogin();
+    }
+
+    private void moveToLogin() {
+        Intent intent = new Intent(Caregiver.this, KeyId.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

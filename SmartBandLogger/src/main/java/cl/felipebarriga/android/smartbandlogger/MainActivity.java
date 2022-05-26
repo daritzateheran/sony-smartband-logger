@@ -37,6 +37,7 @@ import java.util.Date;
 import java.util.List;
 
 import cl.felipebarriga.android.utils.PreferencesUtils;
+import cl.felipebarriga.android.utils.session;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -89,6 +90,14 @@ public class MainActivity extends Activity implements OnEventListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        session sessionManagement = new session(   MainActivity.this);
+        String userKey = sessionManagement.getSession();
+
+        Log.d(LOG_TAG, CLASS +  "userKey = " + userKey);
+
+
+
         /*SharedPreferences mp = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = mp.edit();
         editor.putFloat("user", 78569542);
@@ -283,7 +292,8 @@ public class MainActivity extends Activity implements OnEventListener {
                     Log.w("Timestamp = ", timestamp2date(record.timestamp));
 
                     RequestBody form = new FormBody.Builder().add("value", xyz_50.toString()).add("timestamp", timestamp2date(record.timestamp)).build();
-                    Request request = new Request.Builder().url("http://3.16.124.69:3000/post").post(form).build();
+                    Request request = new Request.Builder().url("http://10.20.35.106:3000/post").post(form).build();
+                    /*Request request = new Request.Builder().url("http://3.16.124.69:3000/post").post(form).build();*/
                     client.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(@NotNull Call call, @NotNull IOException e) {
