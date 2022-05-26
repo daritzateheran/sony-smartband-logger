@@ -13,15 +13,31 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+
+import cl.felipebarriga.android.utils.User;
 import cl.felipebarriga.android.utils.session;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class Caregiver extends Activity{
     public String alert;
+    private static final String LOG_TAG = "SmartBandLogger";
+    private final String CLASS = getClass().getSimpleName();
+    public OkHttpClient client = new OkHttpClient();
     public static class Global {
         public static String Number;
         public static String message;
@@ -32,13 +48,15 @@ public class Caregiver extends Activity{
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences mp = PreferenceManager.getDefaultSharedPreferences(this);
+       // SharedPreferences mp = PreferenceManager.getDefaultSharedPreferences(this);
+
+
 
         alert = "Alguien está presentando un evento anormal";
         setContentView( R.layout.caregiver );
 
-        etMsj= (EditText) findViewById(R.id.Key);
-        etCel= (EditText) findViewById(R.id.id);
+        etMsj= (EditText) findViewById(R.id.textMensaje);
+        etCel= (EditText) findViewById(R.id.textNumero);
         btnsend= (Button) findViewById(R.id.button);
         btnSelec= (Button) findViewById(R.id.btnAgregar);
         btnCall= (Button) findViewById(R.id.btnCall);
@@ -120,7 +138,33 @@ public class Caregiver extends Activity{
 
                 etMsj.setText(nombre);
                 etCel.setText(number);
+                Log.d(LOG_TAG, CLASS +  " nombre = " + nombre);
+                Log.d(LOG_TAG, CLASS +  " numero = " + number);
 
+                session sessionManagement = new session(   Caregiver.this);
+                String userKey = sessionManagement.getSession();
+
+                Log.d(LOG_TAG, CLASS +  "userKey = " + userKey);
+
+                RequestBody form = new FormBody.Builder().add("Key", userKey).add("contact",nombre).add("número", number).build();
+                //Request request = new Request.Builder().url("http://10.20.35.106:3000/sign").post(form).build();
+                Request request = new Request.Builder().url("http://3.16.124.69:3000/addCaregiver").post(form).build();
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        //   Log.w("server", "falló");
+                        Log.d(LOG_TAG, CLASS + ": SERVER IS NOT WORKING");
+
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        String r = response.body().string();
+                        Log.d(LOG_TAG, CLASS + "response " + r);
+
+
+                    }
+                });
             }
         }
     }

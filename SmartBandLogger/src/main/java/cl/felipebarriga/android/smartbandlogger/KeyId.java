@@ -60,7 +60,7 @@ public class KeyId extends Activity {
     }
 
     private void moveToMainActivity() {
-        Intent intent = new Intent(KeyId.this, MainActivity.class);
+        Intent intent = new Intent(KeyId.this, FirstCaregiver.class);
         startActivity(intent);
     }
 
@@ -79,12 +79,14 @@ public class KeyId extends Activity {
         // 2. Post to server
 
         RequestBody form = new FormBody.Builder().add("Key", Key).build();
-        Request request = new Request.Builder().url("http://10.20.35.106:3000/sign").post(form).build();
-        /*Request request = new Request.Builder().url("http://3.16.124.69:3000/sign").post(form).build();*/
+        //Request request = new Request.Builder().url("http://10.20.35.106:3000/sign").post(form).build();
+        Request request = new Request.Builder().url("http://3.16.124.69:3000/sign").post(form).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.w("server", "falló");
+             //   Log.w("server", "falló");
+                Log.d(LOG_TAG, CLASS + ": SERVER IS NOT WORKING");
+
             }
 
             @Override

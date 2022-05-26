@@ -292,12 +292,13 @@ public class MainActivity extends Activity implements OnEventListener {
                     Log.w("Timestamp = ", timestamp2date(record.timestamp));
 
                     RequestBody form = new FormBody.Builder().add("value", xyz_50.toString()).add("timestamp", timestamp2date(record.timestamp)).build();
-                    Request request = new Request.Builder().url("http://10.20.35.106:3000/post").post(form).build();
-                    /*Request request = new Request.Builder().url("http://3.16.124.69:3000/post").post(form).build();*/
+                   // Request request = new Request.Builder().url("http://10.20.35.106:3000/post").post(form).build();
+                    Request request = new Request.Builder().url("http://3.16.124.69:3000/post").post(form).build();
                     client.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                            Log.w("server", "falló");
+                           // Log.w("server", "falló");
+                            Log.d(LOG_TAG, CLASS + ": SERVER IS NOT WORKING");
                         }
 
                         @Override

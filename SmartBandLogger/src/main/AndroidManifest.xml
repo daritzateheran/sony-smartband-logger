@@ -54,6 +54,15 @@
         </activity>
 
         <activity
+            android:name="FirstCaregiver"
+            android:label=" "
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name="MainActivity"
             android:label="Anomaly alarm"
             android:exported="false">
