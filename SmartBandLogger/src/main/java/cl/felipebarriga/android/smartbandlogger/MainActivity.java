@@ -85,42 +85,32 @@ public class MainActivity extends Activity implements OnEventListener {
     public OkHttpClient client = new OkHttpClient();
     public List<Float> xyz_50 = new ArrayList<Float>();
     public List<String> predictions = new ArrayList<String>();
+    public List<String>  caregiversPhone = new ArrayList<String>();
+
     public String validation = "1";
+    private String userKey = null;
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadCaregivers();
+    }
+    private void loadCaregivers() {
+        session sessionManagement = new session(   MainActivity.this);
+        userKey = sessionManagement.getSession();
+        Log.d(LOG_TAG, CLASS +  "userKey = " + userKey);
+
+        RequestBody form = new FormBody.Builder().add("key", userKey).build();
+        Request request = new Request.Builder().url("http://3.16.124.69:3000/loadCaregivers").post(form).build();
+
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        session sessionManagement = new session(   MainActivity.this);
-        String userKey = sessionManagement.getSession();
-
-        Log.d(LOG_TAG, CLASS +  "userKey = " + userKey);
-
-
-
-        /*SharedPreferences mp = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = mp.edit();
-        editor.putFloat("user", 78569542);
-        editor.apply();
-
-        editor.putString("Caregivers", "adriana,3013458945");
-        editor.apply();
-
-        Float user = mp.getFloat("user", -1);
-        String caregiver = mp.getString("Caregivers", "");
-
-        System.out.println(user +" "+ caregiver);*/
-
-       /*SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
-
-        Log.i( LOG_TAG, CLASS + isFirstRun);
-
-        if (isFirstRun) {
-            Intent intent = new Intent(getApplicationContext(), launch.class);
-            startActivity(intent);
-        }*/
-
         setContentView(R.layout.main);
 
         mLoggerSingleton = LoggerSingleton.getInstance();
@@ -217,7 +207,6 @@ public class MainActivity extends Activity implements OnEventListener {
         linePaint.setStrokeWidth(PixelUtils.dpToPix(width));
         linePaint.setColor(color);
         linePaint.setStyle(Paint.Style.STROKE);
-
         return linePaint;
     }
 

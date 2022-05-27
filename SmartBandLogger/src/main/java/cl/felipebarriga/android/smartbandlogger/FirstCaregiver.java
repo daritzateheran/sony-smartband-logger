@@ -48,7 +48,7 @@ public class FirstCaregiver extends Activity {
         btnadd= (Button) findViewById(R.id.btnAdd);
         btnReg= (Button) findViewById(R.id.btnRegister);
 
-        btnadd.setOnClickListener(new View.OnClickListener(){
+        /*btnadd.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
@@ -57,10 +57,35 @@ public class FirstCaregiver extends Activity {
 
                 startActivityForResult(intent, 1);
             }
-        });
+        });*/
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkSession();
+    }
 
+    private void checkSession() {
+        session sessionManagement = new session(FirstCaregiver.this);
+        String session_caregiver = sessionManagement.getCaregiver();
+        Log.d(LOG_TAG, CLASS + " caregiver " + session_caregiver);
+        if(session_caregiver !="-1"){
+            moveToMainActivity();
+        }
+        else{
+        }
+    }
 
+    public void firstCaregiver(View view) {
+        Intent intent =new Intent(Intent.ACTION_PICK);
+        intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);  //acceder tanto al nombre como el # de contacto
+        startActivityForResult(intent, 1);
+    }
+
+    private void moveToMainActivity() {
+        Intent intent = new Intent(FirstCaregiver.this, MainActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -89,12 +114,11 @@ public class FirstCaregiver extends Activity {
                 Log.d(LOG_TAG, CLASS +  "userKey = " + userKey);
 
                 RequestBody form = new FormBody.Builder().add("Key", userKey).add("contact",nombre).add("numero", number).build();
-                //Request request = new Request.Builder().url("http://10.20.35.106:3000/sign").post(form).build();
+                //Request request = new Request.Builder().url("http://10.20.35.109:3000/sign").post(form).build();
                 Request request = new Request.Builder().url("http://3.16.124.69:3000/add_caregiver").post(form).build();
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        //   Log.w("server", "falló");
                         Log.d(LOG_TAG, CLASS + ": SERVER IS NOT WORKING");
 
                     }
@@ -103,6 +127,18 @@ public class FirstCaregiver extends Activity {
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                         String r = response.body().string();
                         Log.d(LOG_TAG, CLASS + "response " + r);
+                        if (r.equals("Contact added successfully")){
+                            sessionManagement.setCaregiver("1");
+
+                            moveToMainActivity();
+                        }
+                        else{
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(),r, Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
 
 
                     }

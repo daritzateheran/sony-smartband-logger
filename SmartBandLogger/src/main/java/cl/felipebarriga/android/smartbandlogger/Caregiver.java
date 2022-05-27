@@ -112,12 +112,26 @@ public class Caregiver extends Activity{
         //this method will remove session and open login screen
         session sessionManagement = new session(   Caregiver.this);
         sessionManagement.removeSession();
-
+        sessionManagement.removeCaregiver();
         moveToLogin();
     }
 
     private void moveToLogin() {
         Intent intent = new Intent(Caregiver.this, KeyId.class);
+        startActivity(intent);
+    }
+
+    public void resetCaregiver(View view) {
+        //this method will remove session and open login screen
+        session sessionManagement = new session(   Caregiver.this);
+        sessionManagement.removeCaregiver();
+        String session_caregiver = sessionManagement.getCaregiver();
+        Log.d(LOG_TAG, CLASS + " caregiver " + session_caregiver);
+        moveToFirst();
+    }
+
+    private void moveToFirst() {
+        Intent intent = new Intent(Caregiver.this, FirstCaregiver.class);
         startActivity(intent);
     }
 

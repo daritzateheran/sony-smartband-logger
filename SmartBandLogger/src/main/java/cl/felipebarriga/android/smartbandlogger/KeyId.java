@@ -58,7 +58,6 @@ public class KeyId extends Activity {
             //do nothing
         }
     }
-
     private void moveToMainActivity() {
         Intent intent = new Intent(KeyId.this, FirstCaregiver.class);
         startActivity(intent);
@@ -105,7 +104,7 @@ public class KeyId extends Activity {
                 else{
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            Toast.makeText(getApplicationContext(),"Key o id no valida", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Invalid key or Id", Toast.LENGTH_LONG).show();
                         }
                     });
                 }

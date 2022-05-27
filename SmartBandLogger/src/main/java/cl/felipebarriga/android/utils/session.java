@@ -7,7 +7,8 @@ public class session {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String SHARED_PREF_NAME = "sessionKey";
-    String SESSION_KEY = "KeySession";
+    String SESSION_KEY = "Key_session";
+    String SESSION_CAREGIVER = "Caregiver_session";
 
     public session(Context context){
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
@@ -28,5 +29,19 @@ public class session {
 
     public void removeSession(){
         editor.putString(SESSION_KEY,"-1").commit();
+    }
+
+    public void removeCaregiver(){
+        editor.putString(SESSION_CAREGIVER,"-1").commit();
+    }
+
+
+    public String getCaregiver(){
+        //return user id whose session is saved
+        return sharedPreferences.getString(SESSION_CAREGIVER, "-1");
+    }
+
+    public void setCaregiver(String c){
+        editor.putString(SESSION_CAREGIVER,c).commit();
     }
 }
