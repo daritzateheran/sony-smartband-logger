@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements OnEventListener {
     public OkHttpClient client = new OkHttpClient();
     public List<Float> xyz_50 = new ArrayList<Float>();
     public List<String> predictions = new ArrayList<String>();
-    public List<String>  caregiversPhone = new ArrayList<String>();
+    private String[] caregiversPhone;
 
     public String validation = "1";
     private String userKey = null;
@@ -96,13 +96,28 @@ public class MainActivity extends Activity implements OnEventListener {
         super.onStart();
         loadCaregivers();
     }
+
     private void loadCaregivers() {
         session sessionManagement = new session(   MainActivity.this);
         userKey = sessionManagement.getSession();
         Log.d(LOG_TAG, CLASS +  "userKey = " + userKey);
 
-        RequestBody form = new FormBody.Builder().add("key", userKey).build();
+        RequestBody form = new FormBody.Builder().add("Key", userKey).build();
         Request request = new Request.Builder().url("http://3.16.124.69:3000/loadCaregivers").post(form).build();
+        client.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                String r = response.body().string();
+                caregiversPhone = r.split(",");
+                Log.d(LOG_TAG, CLASS +  " Caregivers lenght = " + caregiversPhone.length);
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.d(LOG_TAG, CLASS + ": SERVER IS NOT WORKING");
+            }
+        });
 
     }
 
@@ -318,13 +333,14 @@ public class MainActivity extends Activity implements OnEventListener {
                                     validation = "1";
                                 }
                                 if (cont>contN && validation.equals("1")){
-
-                                    Log.w("Mensaje = ", "Entró en ANORMAL");
-                                    SmsManager smsManager = SmsManager.getDefault();
-                                    smsManager.sendTextMessage("3042062017", null, alert + "timestamp" + timeServer, null, null);
+                                    for (int p=0;p<caregiversPhone.length;p++){
+                                        Log.w("Mensaje = ", "Entró en ANORMAL");
+                                        SmsManager smsManager = SmsManager.getDefault();
+                                        smsManager.sendTextMessage(caregiversPhone[p], null, alert + " Hora de suceso = " + timeServer, null, null);
+                                        Log.w( "server = ","SMS enviado");
+                                    }
 
                                     //Toast.makeText(MainActivity.this, "Mensaje enviado", Toast.LENGTH_LONG).show();
-                                    Log.w( "server = ","SMS enviado");
                                     /*Log.w("Ingreso = ", "Realiza llamada");
                                     Intent i = new Intent(Intent.ACTION_CALL, Uri.parse("tel:3042062017"));
                                     if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {

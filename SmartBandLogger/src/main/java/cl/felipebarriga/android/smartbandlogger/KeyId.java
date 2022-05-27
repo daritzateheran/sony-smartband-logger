@@ -49,8 +49,10 @@ public class KeyId extends Activity {
         //if user is logged in --> move to mainActivity
         session sessionManagement = new session(KeyId.this);
         String userKey = sessionManagement.getSession();
+        Log.d(LOG_TAG, CLASS + " UserKey " + userKey);
+        Log.d(LOG_TAG, CLASS +  "boolean " + (!userKey.contains("-1")));
 
-        if(userKey !="-1"){
+        if(!userKey.contains("-1")){
             //user id logged in and so move to mainActivity
             moveToMainActivity();
         }

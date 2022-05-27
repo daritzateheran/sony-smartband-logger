@@ -70,12 +70,12 @@ public class FirstCaregiver extends Activity {
         session sessionManagement = new session(FirstCaregiver.this);
         String session_caregiver = sessionManagement.getCaregiver();
         Log.d(LOG_TAG, CLASS + " caregiver " + session_caregiver);
-        if(session_caregiver !="-1"){
+        if(!session_caregiver.contains("-1")){
             moveToMainActivity();
         }
         else{
+            }
         }
-    }
 
     public void firstCaregiver(View view) {
         Intent intent =new Intent(Intent.ACTION_PICK);

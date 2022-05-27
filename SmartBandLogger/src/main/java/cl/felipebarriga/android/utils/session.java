@@ -7,8 +7,8 @@ public class session {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String SHARED_PREF_NAME = "sessionKey";
-    String SESSION_KEY = "Key_session";
-    String SESSION_CAREGIVER = "Caregiver_session";
+    String SESSION_KEY = "K_session";
+    String SESSION_CAREGIVER = "C_session";
 
     public session(Context context){
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
