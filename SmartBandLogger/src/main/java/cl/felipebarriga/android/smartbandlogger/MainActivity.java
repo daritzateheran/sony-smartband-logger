@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidplot.util.PixelUtils;
@@ -56,13 +57,13 @@ import java.util.ArrayList;
  }*/
 public class MainActivity extends Activity implements OnEventListener {
 
+    private TextView Statusactual = null;
     public String alert;
 
     private LoggerSingleton mLoggerSingleton = null;
 
     private static final String LOG_TAG = "SmartBandLogger";
     private final String CLASS = getClass().getSimpleName();
-
     private static final int HISTORY_SIZE = 300;
 
     private PreferencesUtils mPrefs = null;
@@ -89,6 +90,7 @@ public class MainActivity extends Activity implements OnEventListener {
 
     public String validation = "1";
     private String userKey = null;
+    private String predictr = null;
 
 
     @Override
@@ -136,6 +138,8 @@ public class MainActivity extends Activity implements OnEventListener {
         mFilename       = ( TextView ) findViewById( R.id.main_filename_lbl );
         mLogSize        = ( TextView ) findViewById( R.id.main_log_size_lbl );
         mElapsedTime    = ( TextView ) findViewById( R.id.main_elapsed_time_lbl );*/
+
+        Statusactual         = ( TextView ) findViewById( R.id.textStatus);
         mHistoryPlot = (XYPlot) findViewById(R.id.main_history_plot);
 
         mPrefs = new PreferencesUtils(this);
@@ -144,8 +148,22 @@ public class MainActivity extends Activity implements OnEventListener {
         //updateUI();
         redrawPlot();
         mLoggerSingleton.setOnEventListener(this);
+        //Statusactual.setText(r);
         //updateElapsedTime();
 
+    }
+
+    public void logout(View view) {
+        //this method will remove session and open login screen
+        session sessionManagement = new session(   MainActivity.this);
+        sessionManagement.removeSession();
+        sessionManagement.removeCaregiver();
+        moveToLogin();
+    }
+
+    private void moveToLogin() {
+        Intent intent = new Intent(MainActivity.this, KeyId.class);
+        startActivity(intent);
     }
 
     public String timestamp2date(long ts) {
@@ -293,7 +311,7 @@ public class MainActivity extends Activity implements OnEventListener {
                     xyz_50.add(record.z);
 
                 } else {
-                    Log.w("Timestamp = ", timestamp2date(record.timestamp));
+                    //Log.w("Timestamp = ", timestamp2date(record.timestamp));
 
                     RequestBody form = new FormBody.Builder().add("value", xyz_50.toString()).add("timestamp", timestamp2date(record.timestamp)).build();
                    // Request request = new Request.Builder().url("http://10.20.35.106:3000/post").post(form).build();
@@ -308,10 +326,17 @@ public class MainActivity extends Activity implements OnEventListener {
                         @Override
                         public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                             String r = response.body().string();
-                            String predictr = r.split(String.valueOf(' '))[0];
+                            predictr = r.split(String.valueOf(' '))[0];
                             String timeServer = r.split(String.valueOf(' '))[4];
                             int cont = 0;
                             int contN= 0;
+
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Statusactual.setText(predictr);
+                                    Log.d(LOG_TAG, CLASS + ": predictr = " +  predictr);
+                                }
+                            });
 
                             alert = "Alguien está presentando un evento anormal";
                             if (predictions.size()<5){
@@ -327,7 +352,7 @@ public class MainActivity extends Activity implements OnEventListener {
                                 Log.w("Predictions = ",String.valueOf(predictions));
                                 Log.w("Contador Anormal = ", String.valueOf(cont));
                                 Log.w("Contador Normal = ", String.valueOf(contN));
-                                Log.w("timeServer = ",String.valueOf(timeServer));
+                                //Log.w("timeServer = ",String.valueOf(timeServer));
 
                                 if (contN>cont){
                                     validation = "1";
@@ -337,7 +362,8 @@ public class MainActivity extends Activity implements OnEventListener {
                                         Log.w("Mensaje = ", "Entró en ANORMAL");
                                         SmsManager smsManager = SmsManager.getDefault();
                                         smsManager.sendTextMessage(caregiversPhone[p], null, alert + " Hora de suceso = " + timeServer, null, null);
-                                        Log.w( "server = ","SMS enviado");
+                                        Log.w( "server = ","SMS enviado" +" NUMERO ="+caregiversPhone[p]);
+
                                     }
 
                                     //Toast.makeText(MainActivity.this, "Mensaje enviado", Toast.LENGTH_LONG).show();

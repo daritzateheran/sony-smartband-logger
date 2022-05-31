@@ -3,7 +3,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
+    <ImageView
+        android:id="@+id/fondoImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_color" />
+
+    <TextView
+        android:id="@+id/textVName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="93dp"
+        android:layout_marginLeft="93dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginRight="108dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center_horizontal|center_vertical"
+        android:hint="Caregiver Name"
+        android:minHeight="48dp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textVPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="93dp"
+        android:layout_marginLeft="93dp"
+        android:layout_marginTop="320dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginRight="108dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center_horizontal"
+        android:hint="Phone Number"
+        android:minHeight="48dp"
+        android:textSize="20sp" />
+
+   <!-- <EditText
         android:id="@+id/textMensaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,22 +74,23 @@
         android:gravity="center_horizontal"
         android:hint="Ncelular"
         android:inputType="textPersonName"
-        android:minHeight="48dp" />
+        android:minHeight="48dp" />-->
 
     <Button
         android:id="@+id/btnAgregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textNumero"
+        android:layout_below="@id/textVPhone"
         android:layout_centerInParent="true"
         android:layout_marginTop="30dp"
         android:background="@color/color_darkblue"
         android:gravity="center_horizontal|center_vertical"
+        android:padding="5dp"
         android:text="ADD Contact"
         android:textColor="@color/ap_white"
         android:textSize="16sp" />
 
-    <Button
+    <!--<Button
         android:id="@+id/btnCall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,14 +99,13 @@
         android:background="@color/color_darkblue"
         android:text="CALL"
         android:textColor="@color/off_white"
-        android:textSize="25sp" />
+        android:textSize="25sp" />-->
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnCall"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:background="@color/color_darkblue"
         android:text="SEND"
         android:textColor="@color/ap_white"
@@ -68,25 +116,16 @@
         android:id="@+id/btnreset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textNumero"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="149dp"
-        android:layout_marginLeft="149dp"
-        android:layout_marginTop="-245dp"
-        android:layout_marginEnd="155dp"
-        android:layout_marginRight="155dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
         android:background="@color/color_darkblue"
-        android:gravity="center_horizontal|center_vertical"
-        android:onClick="resetCaregiver"
+        android:onClick="resetCaregivers"
+        android:padding="5dp"
         android:text="Reset Caregiver"
         android:textColor="@color/ap_white"
         android:textSize="16sp" />
 
-    <Button
+    <!--<Button
         android:id="@+id/btnlogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -106,5 +145,5 @@
         android:onClick="logout"
         android:text="Sign out"
         android:textColor="@color/ap_white"
-        android:textSize="16sp" />
+        android:textSize="16sp" />-->
 </RelativeLayout>

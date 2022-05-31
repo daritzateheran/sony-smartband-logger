@@ -5,4 +5,5 @@
     <color name="plot_z">#FF6464FF</color>
     <color name="color_lightblue">#039af1</color>
     <color name="color_darkblue">#0F256E</color>
+    <color name="color_black">#000000</color>
 </resources>

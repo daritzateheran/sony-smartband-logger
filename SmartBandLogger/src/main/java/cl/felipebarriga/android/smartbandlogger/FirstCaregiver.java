@@ -17,6 +17,7 @@ import android.widget.Toast;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import cl.felipebarriga.android.utils.User;
 import cl.felipebarriga.android.utils.session;
@@ -35,16 +36,17 @@ public class FirstCaregiver extends Activity {
 
     public OkHttpClient client = new OkHttpClient();
 
-    EditText etName,etCel;
+    TextView etName,etCel;
     Button btnadd, btnReg;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView( R.layout.first_caregiver );
+        Objects.requireNonNull(getActionBar()).hide();
 
-        etName= (EditText) findViewById(R.id.caregiverName);
-        etCel= (EditText) findViewById(R.id.N_telefono);
+        etName= (TextView) findViewById(R.id.textVName);
+        etCel= (TextView) findViewById(R.id.textVPhone);
         btnadd= (Button) findViewById(R.id.btnAdd);
         btnReg= (Button) findViewById(R.id.btnRegister);
 

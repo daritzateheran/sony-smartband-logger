@@ -17,11 +17,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import cl.felipebarriga.android.utils.User;
 import cl.felipebarriga.android.utils.session;
@@ -43,25 +45,26 @@ public class Caregiver extends Activity{
         public static String message;
     }
 
-    EditText etMsj,etCel;
-    Button btnsend,btnSelec, btnCall;
+    TextView etName,etCel;
+    Button btnadd, btnReset;
+
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // SharedPreferences mp = PreferenceManager.getDefaultSharedPreferences(this);
-
+        Objects.requireNonNull(getActionBar()).hide();
 
 
         alert = "Alguien está presentando un evento anormal";
         setContentView( R.layout.caregiver );
 
-        etMsj= (EditText) findViewById(R.id.textMensaje);
-        etCel= (EditText) findViewById(R.id.textNumero);
-        btnsend= (Button) findViewById(R.id.button);
-        btnSelec= (Button) findViewById(R.id.btnAgregar);
-        btnCall= (Button) findViewById(R.id.btnCall);
+        etName= (TextView) findViewById(R.id.textVName);
+        etCel= (TextView) findViewById(R.id.textVPhone);
+        btnadd= (Button) findViewById(R.id.btnAgregar);
+        btnReset= (Button) findViewById(R.id.btnreset);
+        //btnCall= (Button) findViewById(R.id.btnCall);
 
-        btnSelec.setOnClickListener(new View.OnClickListener(){
+        btnadd.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
@@ -80,22 +83,22 @@ public class Caregiver extends Activity{
         if(ActivityCompat.checkSelfPermission(Caregiver.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(Caregiver.this, new String[]{Manifest.permission.SEND_SMS}, 1);
         }
-        btnsend.setOnClickListener(new View.OnClickListener() {
+       /* btnsend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 SmsManager smsManager = SmsManager.getDefault();
                 Global.Number = etCel.getText().toString();
                 Global.message = etMsj.getText().toString();
-                smsManager.sendTextMessage("3016740782", null, alert , null, null);
+                smsManager.sendTextMessage("3042062017", null, alert , null, null);
 
                 Toast.makeText(Caregiver.this, "Mensaje enviado", Toast.LENGTH_LONG).show();
             }
 
 
-        });
+        });*/
 
-        btnCall.setOnClickListener(new View.OnClickListener() {
+       /* btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent (Intent.ACTION_CALL, Uri.parse("tel:"+etCel.getText().toString()));
@@ -105,10 +108,10 @@ public class Caregiver extends Activity{
 
                 startActivity(i);
             }
-        });
+        });*/
     }
 
-    public void logout(View view) {
+   /* public void logout(View view) {
         //this method will remove session and open login screen
         session sessionManagement = new session(   Caregiver.this);
         sessionManagement.removeSession();
@@ -119,9 +122,9 @@ public class Caregiver extends Activity{
     private void moveToLogin() {
         Intent intent = new Intent(Caregiver.this, KeyId.class);
         startActivity(intent);
-    }
+    }*/
 
-    public void resetCaregiver(View view) {
+    public void resetCaregivers(View view) {
         //this method will remove session and open login screen
         session sessionManagement = new session(   Caregiver.this);
         sessionManagement.removeCaregiver();
@@ -150,7 +153,7 @@ public class Caregiver extends Activity{
                 String nombre = cursor.getString(indiceName);
                 String number = cursor.getString(indiceNumber);
 
-                etMsj.setText(nombre);
+                etName.setText(nombre);
                 etCel.setText(number);
                 Log.d(LOG_TAG, CLASS +  " nombre = " + nombre);
                 Log.d(LOG_TAG, CLASS +  " numero = " + number);
@@ -160,7 +163,7 @@ public class Caregiver extends Activity{
 
                 Log.d(LOG_TAG, CLASS +  "userKey = " + userKey);
 
-                RequestBody form = new FormBody.Builder().add("Key", userKey).add("contact",nombre).add("número", number).build();
+              /*  RequestBody form = new FormBody.Builder().add("Key", userKey).add("contact",nombre).add("número", number).build();
                 //Request request = new Request.Builder().url("http://10.20.35.106:3000/sign").post(form).build();
                 Request request = new Request.Builder().url("http://3.16.124.69:3000/addCaregiver").post(form).build();
                 client.newCall(request).enqueue(new Callback() {
@@ -178,7 +181,7 @@ public class Caregiver extends Activity{
 
 
                     }
-                });
+                });*/
             }
         }
     }

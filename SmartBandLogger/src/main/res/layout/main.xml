@@ -17,134 +17,206 @@
     androidplot:androidPlot.domainLabel="Domain"
     -->
 
-    <LinearLayout
+   <!-- <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@color/color_lightblue"
         android:gravity="center_horizontal|center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical">-->
 
-        <!-- <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp">
+    <ImageView
+        android:id="@+id/fondoImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/background_color" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textStatus1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Status:"
+        android:textColor="@color/color_black"
+        android:textSize="20sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="@string/main_status_text"
-                    android:id="@+id/textView"
-                    android:paddingRight="100dp"/>
+    <TextView
+        android:id="@+id/textStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="status"
+        android:textColor="@color/color_black"
+        android:textSize="20sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/main_status_lbl"
-                    />
-            </TableRow>
+    <com.androidplot.xy.XYPlot
+        android:id="@+id/main_history_plot"
+        style="@style/APDefacto.Light"
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        android:layout_width="380dp"
+        android:layout_height="520dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_weight="1"
+        ap:borderColor="@color/color_lightblue"
+        ap:graphHeight="25dp"
+        ap:graphHeightMode="fill"
+        ap:graphWidth="0dp"
+        ap:graphWidthMode="fill"
+        ap:lineLabelRotationBottom="-90" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="@string/main_data_rate_text"
-                    android:id="@+id/textView5"/>
+    <Button
+        android:id="@+id/btnlogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/main_data_rate_lbl"
-                    />
-            </TableRow>
+        android:layout_marginStart="149dp"
+        android:layout_marginLeft="149dp"
+        android:layout_marginTop="600dp"
+        android:layout_marginEnd="155dp"
+        android:layout_marginRight="155dp"
+        android:background="@color/color_darkblue"
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        android:onClick="logout"
+        android:text="Sign out"
+        android:textColor="@color/ap_white"
+        android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="@string/main_log_filename_text"
-                    android:id="@+id/textView3"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/main_filename_lbl"/>
-            </TableRow>
+    <!-- </LinearLayout>-->
+         <!-- <TableLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_horizontal"
+             android:paddingBottom="5dp"
+             android:paddingLeft="5dp">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+             <TableRow
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="@string/main_records_text"
-                    android:id="@+id/textView9"/>
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceSmall"
+                     android:text="@string/main_status_text"
+                     android:id="@+id/textView"
+                     android:paddingRight="100dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/main_records_lbl"/>
-            </TableRow>
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceSmall"
+                     android:id="@+id/main_status_lbl"
+                     />
+             </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+             <TableRow
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_elapsed_time_text"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceSmall"
+                     android:text="@string/main_data_rate_text"
+                     android:id="@+id/textView5"/>
 
-                <TextView
-                    android:id="@+id/main_elapsed_time_lbl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-            </TableRow>
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceSmall"
+                     android:id="@+id/main_data_rate_lbl"
+                     />
+             </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+             <TableRow
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="@string/main_log_size_text"
-                    android:id="@+id/textView7"/>
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceSmall"
+                     android:text="@string/main_log_filename_text"
+                     android:id="@+id/textView3"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/main_log_size_lbl"
-                    />
-            </TableRow>
-        </TableLayout>-->
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceSmall"
+                     android:id="@+id/main_filename_lbl"/>
+             </TableRow>
+
+             <TableRow
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceSmall"
+                     android:text="@string/main_records_text"
+                     android:id="@+id/textView9"/>
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceSmall"
+                     android:id="@+id/main_records_lbl"/>
+             </TableRow>
+
+             <TableRow
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+
+                 <TextView
+                     android:id="@+id/textView11"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="@string/main_elapsed_time_text"
+                     android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                 <TextView
+                     android:id="@+id/main_elapsed_time_lbl"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceSmall" />
+             </TableRow>
+
+             <TableRow
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceSmall"
+                     android:text="@string/main_log_size_text"
+                     android:id="@+id/textView7"/>
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceSmall"
+                     android:id="@+id/main_log_size_lbl"
+                     />
+             </TableRow>
+         </TableLayout>-->
 
         <!--
         <com.androidplot.xy.XYPlot
@@ -200,22 +272,7 @@
 
         -->
 
-        <com.androidplot.xy.XYPlot
-            android:id="@+id/main_history_plot"
-            style="@style/APDefacto.Light"
 
-            android:layout_width="380dp"
-            android:layout_height="0dp"
-            android:layout_margin="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            ap:backgroundColor="@color/color_lightblue"
-            ap:borderColor="@color/color_lightblue"
-            ap:graphHeight="50dp"
-            ap:graphHeightMode="fill"
-            ap:graphWidth="0dp"
-            ap:graphWidthMode="fill"
-            ap:lineLabelRotationBottom="-90" />
 
 
 
@@ -226,5 +283,5 @@
             ap:rangeTitleTextSize="@dimen/range_label_font_size"
             ap:title="">-->
 
-    </LinearLayout>
+
 </RelativeLayout>

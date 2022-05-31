@@ -12,6 +12,7 @@ import android.widget.Toast;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import cl.felipebarriga.android.utils.User;
 import cl.felipebarriga.android.utils.session;
@@ -37,6 +38,7 @@ public class KeyId extends Activity {
         super.onCreate(savedInstanceState);
         Log.d(LOG_TAG, CLASS + " onCreate: called");
         setContentView(R.layout.keyid);
+        Objects.requireNonNull(getActionBar()).hide();
     }
     @Override
     protected void onStart() {
